@@ -1,0 +1,215 @@
+@keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0.95; }
+            20%, 22%, 24%, 55% { opacity: 0.2; }
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 5px #00f7ff; }
+            50% { text-shadow: 0 0 20px #00f7ff; }
+            100% { text-shadow: 0 0 5px #00f7ff; }
+        }
+        
+        @keyframes hologram-bg {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: 
+                linear-gradient(135deg, rgba(0,5,15,0.95) 0%, rgba(0,20,40,0.95) 100%),
+                linear-gradient(to right, rgba(0,247,255,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,247,255,0.05) 1px, transparent 1px);
+            background-size: cover, 20px 20px, 20px 20px;
+            animation: hologram-bg 30s linear infinite;
+            color: #00f7ff;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 95%,
+                rgba(0,247,255,0.1) 95%,
+                rgba(0,247,255,0.1) 96%,
+                transparent 96%
+            );
+            background-size: 100% 10px;
+            animation: scanline 3s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .notification {
+            position: relative;
+            background: rgba(0, 10, 20, 0.8);
+            border: 1px solid #00f7ff;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.3),
+                        inset 0 0 15px rgba(0, 247, 255, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            z-index: 2;
+            animation: flicker 5s infinite;
+        }
+        
+        .notification::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+            box-shadow: 0 0 15px #00f7ff;
+        }
+        
+        .notification::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+            box-shadow: 0 0 15px #00f7ff;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #00f7ff;
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+            letter-spacing: 2px;
+            animation: pulse 3s infinite;
+        }
+        
+        .congrats {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00ff9d;
+            margin-top: 20px;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            position: relative;
+        }
+        
+        .congrats::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ff9d, transparent);
+            box-shadow: 0 0 10px #00ff9d;
+        }
+        
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="10" height="10" fill="%2300f7ff" opacity="0.1"/></svg>');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .close-btn {
+            position: relative;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: rgba(0, 10, 20, 0.7);
+            border: 1px solid #00f7ff;
+            border-radius: 3px;
+            color: #00f7ff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2),
+                        inset 0 0 10px rgba(0, 247, 255, 0.1);
+            overflow: hidden;
+            animation: flicker 5s infinite;
+        }
+        
+        .close-btn:hover {
+            background: rgba(0, 30, 60, 0.7);
+            box-shadow: 0 0 25px rgba(0, 247, 255, 0.4),
+                        inset 0 0 15px rgba(0, 247, 255, 0.2);
+            text-shadow: 0 0 10px #00f7ff;
+        }
+        
+        .close-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .close-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .close-btn:hover::before {
+            left: 100%;
+        }
+
+        .already-visited {
+            font-size: 24px;
+            color: #00f7ff;
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .redirect-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(0, 30, 60, 0.7);
+            border: 1px solid #00f7ff;
+            border-radius: 3px;
+            color: #00f7ff;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2),
+                        inset 0 0 10px rgba(0, 247, 255, 0.1);
+            animation: flicker 5s infinite;
+        }
+
+        .redirect-btn:hover {
+            background: rgba(0, 50, 100, 0.7);
+            box-shadow: 0 0 25px rgba(0, 247, 255, 0.4);
+            text-shadow: 0 0 10px #00f7ff;
+        }

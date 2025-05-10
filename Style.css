@@ -1,0 +1,731 @@
+/* Базовые стили */
+@keyframes hologram-bg {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(0, 247, 255, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(0, 247, 255, 0.9); }
+  100% { box-shadow: 0 0 10px rgba(0, 247, 255, 0.5); }
+}
+
+@keyframes pulseBtn {
+  0% { box-shadow: 0 0 15px rgba(0, 255, 170, 0.5); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 170, 0.9); }
+  100% { box-shadow: 0 0 15px rgba(0, 255, 170, 0.5); }
+}
+
+@keyframes hologram {
+  0% { transform: rotate(45deg) translate(-30%, -30%); }
+  100% { transform: rotate(45deg) translate(30%, 30%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes repPulse {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: auto;
+  background: 
+    linear-gradient(135deg, rgba(0,5,15,0.95) 0%, rgba(0,20,40,0.95) 100%),
+    linear-gradient(to right, rgba(0,247,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,247,255,0.05) 1px, transparent 1px);
+  background-size: cover, 20px 20px, 20px 20px;
+  animation: hologram-bg 30s linear infinite;
+  color: #e0e0e0;
+}
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 95%,
+    rgba(0,247,255,0.1) 95%,
+    rgba(0,247,255,0.1) 96%,
+    transparent 96%
+  );
+  background-size: 100% 10px;
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glitch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="10" height="10" fill="%2300f7ff" opacity="0.1"/></svg>');
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00f7ff;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 
+    0 0 30px rgba(0, 247, 255, 0.5),
+    inset 0 0 20px rgba(0, 247, 255, 0.2);
+  min-height: 500px;
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px solid #00f7ff;
+  border-radius: 15px;
+  z-index: -1;
+  opacity: 0.7;
+  filter: blur(10px);
+}
+
+h1, h2, h3, h4 {
+  color: #00f7ff;
+  text-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 30px;
+  text-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #00ff9d;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin-top: 0;
+  color: var(--quest-color, #00f7ff);
+}
+
+/* Меню */
+.menu {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.menu::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+.menu-button {
+  background: transparent;
+  color: #00f7ff;
+  border: 1px solid #00f7ff;
+  padding: 12px 25px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00f7ff;
+  transition: all 0.3s;
+  font-size: 1em;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+}
+
+.menu-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 247, 255, 0),
+    rgba(0, 247, 255, 0.1),
+    rgba(0, 247, 255, 0.3),
+    rgba(0, 247, 255, 0.1),
+    rgba(0, 247, 255, 0)
+  );
+  transform: rotate(45deg);
+  animation: hologram 4s infinite linear;
+}
+
+.menu-button:hover, .menu-button.active {
+  background: rgba(0, 247, 255, 0.1);
+  box-shadow: 0 0 25px rgba(0, 247, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+.menu-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: #00f7ff;
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+/* Вкладки */
+.tab {
+  display: none;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.tab.active {
+  display: block;
+}
+
+/* Квесты */
+.quest {
+  background: rgba(10, 25, 40, 0.8);
+  border: 1px solid #00f7ff;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.quest::before, .quest::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+.quest::before { top: 0; }
+.quest::after { bottom: 0; }
+
+/* Прогресс-бары */
+.progress-bar {
+  height: 20px;
+  background: #1a2a3a;
+  border-radius: 10px;
+  margin: 15px 0;
+  overflow: hidden;
+  border: 1px solid #00f7ff;
+  box-shadow: 0 0 10px rgba(0, 247, 255, 0.3) inset;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #00f7ff, #00ff9d);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.3) 50%,
+    rgba(255,255,255,0.1) 100%
+  );
+  animation: shine 2s infinite;
+}
+
+/* Кнопки */
+button {
+  background: linear-gradient(to bottom, #006a6e, #003336);
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  margin: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00f7ff;
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+  transition: all 0.3s;
+  font-size: 1em;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 247, 255, 0),
+    rgba(0, 247, 255, 0.1),
+    rgba(0, 247, 255, 0.3),
+    rgba(0, 247, 255, 0)
+  );
+  transform: rotate(45deg);
+  animation: hologram 4s infinite linear;
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #008a8e, #005356);
+  box-shadow: 0 0 25px rgba(0, 247, 255, 0.7);
+  transform: translateY(-3px);
+}
+
+.complete-btn {
+  background: linear-gradient(to bottom, #00aa6e, #00663d);
+  animation: pulseBtn 2s infinite;
+}
+
+/* Статистика */
+#stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: rgba(0, 60, 63, 0.5);
+  padding: 12px;
+  border-radius: 5px;
+  margin: 5px;
+  border: 1px solid #00f7ff;
+  min-width: 120px;
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+  box-shadow: 0 0 10px #00f7ff;
+}
+
+.exercise-value {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #00f7ff;
+  text-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
+}
+
+/* Достижения */
+.achievement {
+  background: rgba(0, 247, 255, 0.15);
+  border: 1px solid #00f7ff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  display: none;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.achievement:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 247, 255, 0.5);
+}
+
+.achievement::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #00f7ff, #00ff9d);
+}
+
+.achievement::after {
+  content: "🔓";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5em;
+  opacity: 0.5;
+}
+
+/* Упражнения */
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.exercise-title {
+  color: #00ff9d;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+}
+
+/* Главное меню */
+.main-menu {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.main-menu-button {
+  background: rgba(0, 60, 63, 0.3);
+  color: #00f7ff;
+  border: 1px solid #00f7ff;
+  padding: 15px 30px;
+  margin: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 0 0 10px #00f7ff;
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+  transition: all 0.3s;
+  min-width: 250px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-menu-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 247, 255, 0),
+    rgba(0, 247, 255, 0.1),
+    rgba(0, 247, 255, 0.3),
+    rgba(0, 247, 255, 0)
+  );
+  transform: rotate(45deg);
+  animation: hologram 4s infinite linear;
+}
+
+.main-menu-button:hover {
+  background: rgba(0, 247, 255, 0.1);
+  box-shadow: 0 0 30px rgba(0, 247, 255, 0.7);
+  transform: translateY(-5px);
+  color: #00ff9d;
+}
+
+/* Сетка статистики */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  background: rgba(0, 60, 63, 0.3);
+  border: 1px solid var(--stat-color, #00f7ff);
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card[data-type="strength"] { --stat-color: #ff5a00; }
+.stat-card[data-type="stamina"] { --stat-color: #00f7ff; }
+.stat-card[data-type="speed"] { --stat-color: #00ff9d; }
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--stat-color, #00f7ff), transparent);
+  box-shadow: 0 0 10px var(--stat-color, #00f7ff);
+}
+
+.stat-card-title {
+  color: var(--stat-color, #00ff9d);
+  margin-bottom: 10px;
+  font-size: 1em;
+  text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.stat-card-value {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #00f7ff;
+  text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+}
+
+.level-up {
+  animation: pulse 1s infinite;
+}
+
+.hologram-line {
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+  box-shadow: 0 0 15px #00f7ff;
+}
+
+/* Квесты */
+#daily-quests-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.quest-card {
+  background: rgba(0, 30, 40, 0.7);
+  border: 1px solid var(--quest-color, #00f7ff);
+  border-radius: 5px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quest-card[data-type="strength"] { --quest-color: #ff5a00; }
+.quest-card[data-type="stamina"] { --quest-color: #00f7ff; }
+.quest-card[data-type="speed"] { --quest-color: #00ff9d; }
+
+.quest-card.completed {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.quest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.quest-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 0.9em;
+}
+
+.quest-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.quest-completed {
+  color: #00ff9d;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+}
+
+/* Уровни сложности */
+.difficulty-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+.difficulty-badge.E { background: #4CAF50; }
+.difficulty-badge.D { background: #8BC34A; }
+.difficulty-badge.C { background: #FFC107; color: #000; }
+.difficulty-badge.B { background: #FF9800; }
+.difficulty-badge.A { background: #FF5722; }
+.difficulty-badge.S { background: #F44336; }
+
+/* Модальное окно */
+.exercise-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #111;
+  border: 2px solid #00f7ff;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-content button {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.instructions {
+  margin: 15px 0;
+}
+
+.instructions pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  background: rgba(0,30,40,0.7);
+  padding: 10px;
+  border-radius: 5px;
+  line-height: 1.5;
+}
+
+/* Уведомления */
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 60, 63, 0.9);
+  border: 1px solid #00f7ff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+  z-index: 100;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.notification.fade-out {
+  animation: fadeIn 0.3s ease-out reverse;
+}
+
+/* Адаптация */
+@media (max-width: 768px) {
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .menu {
+    flex-direction: column;
+  }
+  
+  .menu-button {
+    margin: 5px 0;
+    width: 100%;
+  }
+  
+  .exercise-container {
+    margin: 10px 0;
+  }
+  
+  .stats-grid, #daily-quests-container {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  .main-menu-button {
+    min-width: auto;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

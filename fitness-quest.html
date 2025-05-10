@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Leveling</title>
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="glitch"></div>
+  
+  <div class="container">
+    <h1>⚡ Level System ⚡</h1>
+    
+    <div class="menu">
+      <button class="menu-button" onclick="openTab('main')">Главное</button>
+      <button class="menu-button" onclick="openTab('quest')">Ежедневный квест</button>
+      <button class="menu-button" onclick="openTab('quests-tab')">Доступные квесты</button>
+      <button class="menu-button" onclick="openTab('stats-tab')">Мои характеристики</button>
+      <button class="menu-button" onclick="openTab('achievements')">Достижения</button>
+    </div>
+    
+    <!-- Главное меню -->
+    <div id="main" class="tab active">
+      <div class="main-menu">
+        <h2>Тренировочный терминал</h2>
+        <div id="quick-stats">
+          <div id="stats">
+            <div class="stat">🚀 Уровень: <span id="level-main">1</span></div>
+            <div class="stat">⚡ XP: <span id="xp-main">0</span>/<span id="maxXp-main">250</span></div>
+            <div class="stat">💪 Сила: <span id="strength-main">0</span></div>
+            <div class="stat">🔄 Выносливость: <span id="stamina-main">0</span></div>
+            <div class="stat">⚡ Скорость: <span id="speed-main">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ежедневные задания -->
+     <div id="quest" class="tab">
+      <div class="quest">
+        <h3>🎯 Ежедневные Квест</h3>
+        <p>Выполни все задания и стань сильнее!</p>
+        
+        <div class="exercise-container">
+          <div class="exercise-title">Отжимания: <span id="push-ups">0</span>/<span id="push-ups-target">100</span></div>
+          <div class="progress-bar">
+            <div class="progress" id="push-ups-bar"></div>
+          </div>
+          <button onclick="addReps('push-ups', 10)">+10 Отжиманий</button>
+        </div>
+        
+        <div class="exercise-container">
+          <div class="exercise-title">Скручивания: <span id="sit-ups">0</span>/<span id="sit-ups-target">100</span></div>
+          <div class="progress-bar">
+            <div class="progress" id="sit-ups-bar"></div>
+          </div>
+          <button onclick="addReps('sit-ups', 10)">+10 Скручиваний</button>
+        </div>
+        
+        <div class="exercise-container">
+          <div class="exercise-title">Приседания: <span id="squats">0</span>/<span id="squats-target">100</span></div>
+          <div class="progress-bar">
+            <div class="progress" id="squats-bar"></div>
+          </div>
+          <button onclick="addReps('squats', 10)">+10 Приседаний</button>
+        </div>
+        
+        <div class="exercise-container">
+          <div class="exercise-title">Бег: <span id="running">0</span>/<span id="running-target">10</span> км</div>
+          <div class="progress-bar">
+            <div class="progress" id="running-bar"></div>
+          </div>
+          <button onclick="addReps('running', 1)">+1 км Бега</button>
+        </div>
+        
+        <div class="exercise-container">
+          <div class="exercise-title">Планка: <span id="plank">0</span>/<span id="plank-target">1</span> мин</div>
+          <div class="progress-bar">
+            <div class="progress" id="plank-bar"></div>
+          </div>
+          <button onclick="addReps('plank', 1)">+1 мин Планки</button>
+        </div>
+      </div>
+
+      <button id="complete-btn" class="complete-btn" onclick="completeOrResetQuest()">🏁 Завершить Квест</button>
+    </div>
+    
+    <!-- Доступные квесты -->
+    <div id="quests-tab" class="tab">
+      <h3>📌 Сегодняшние квесты</h3>
+      <div id="daily-quests-container"></div>
+    </div>
+    
+    <!-- Мои характеристики -->
+    <div id="stats-tab" class="tab">
+      <h3>📊 Мои характеристики</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">💪 Сила</div>
+          <div class="stat-card-value" id="strength-stat">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">🔄 Выносливость</div>
+          <div class="stat-card-value" id="stamina-stat">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">⚡ Скорость</div>
+          <div class="stat-card-value" id="speed-stat">0</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Достижения -->
+    <div id="achievements" class="tab">
+      <h3>🏆 Достижения и статистика</h3>
+      
+      <div id="stats">
+        <div class="stat">🚀 level: <span class="exercise-value" id="level-ach">1</span></div>
+        <div class="stat">⚡ Всего опыта: <span class="exercise-value" id="total-xp">0</span></div>
+        <div class="stat">🏆 Макс. серия: <span class="exercise-value" id="max-streak">0</span></div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">Всего отжиманий</div>
+          <div class="stat-card-value" id="total-pushups">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Всего скручиваний</div>
+          <div class="stat-card-value" id="total-situps">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Всего приседаний</div>
+          <div class="stat-card-value" id="total-squats">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Всего пробежал (км)</div>
+          <div class="stat-card-value" id="total-running">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Всего в планке (мин)</div>
+          <div class="stat-card-value" id="total-plank">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Всего тренировок</div>
+          <div class="stat-card-value" id="total-workouts">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Среднее отжиманий/день</div>
+          <div class="stat-card-value" id="avg-pushups">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Среднее приседаний/день</div>
+          <div class="stat-card-value" id="avg-squats">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Рекорд отжиманий</div>
+          <div class="stat-card-value" id="max-pushups">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Рекорд приседаний</div>
+          <div class="stat-card-value" id="max-squats">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Рекорд бега (км)</div>
+          <div class="stat-card-value" id="max-running">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Рекорд планки (мин)</div>
+          <div class="stat-card-value" id="max-plank">0</div>
+        </div>
+      </div>
+      
+      <h3 style="margin-top: 30px;">🏅 Достижения</h3>
+      <div id="achievements-list">
+        <div class="achievement" id="day1">🏅 Достижение: Первая миссия выполнена! (День 1)</div>
+        <div class="achievement" id="day3">🏅 Достижение: Серия из 3 дней!</div>
+        <div class="achievement" id="day7">🏅 Достижение: Неделя тренировок!</div>
+        <div class="achievement" id="level5">🏅 Достижение: Достигнут 5 уровень!</div>
+        <div class="achievement" id="level10">🏅 Достижение: Достигнут 10 уровень!</div>
+        <div class="achievement" id="pushup500">🏅 Достижение: 500 отжиманий всего!</div>
+        <div class="achievement" id="squat500">🏅 Достижение: 500 приседаний всего!</div>
+        <div class="achievement" id="run50">🏅 Достижение: 50 км бега всего!</div>
+        <div class="achievement" id="plank10">🏅 Достижение: 10 минут в планке всего!</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="sound-complete" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+  <audio id="sound-levelup" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
